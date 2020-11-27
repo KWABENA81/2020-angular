@@ -35,7 +35,7 @@ Look to see if you have files ~/.ssh/id_rsa and ~/.ssh/id_rsa.pub.
 
 If not, create such public/private keys: Open a terminal/shell and type:
 $ ssh-keygen -t rsa -b 4096 -C "kwabena81@yahoo.com"
->>>AskS3f0526
+>>>Ask@#!S3f0526
 
 Copy your public key (the contents of the newly-created id_rsa.pub file) into your clipboard. 
 
