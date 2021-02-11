@@ -41,7 +41,8 @@
                             <td>{{ product.price | currency: 'CAD' : 'symbol-narrow' }}</td>
                             <td>{{ product.description }}</td>
                             <td>
-                                <pm-star [rating]='product.starRating' (ratingClicked)='onRatingClicked($event)'></pm-star>
+                                <app-star [rating]='product.starRating' (ratingClicked)='onRatingClicked($event)'>
+                                </app-star>
                             </td>
                         </tr>
                     </tbody>
