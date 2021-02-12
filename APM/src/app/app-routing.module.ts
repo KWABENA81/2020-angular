@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { WelcomeComponent } from './home/welcome.component';
 import { ProductDetailComponent } from './products/product-detail.component';
+import { ProductDetailGuard } from './products/product-detail.guard';
 import { ProductListComponent } from './products/product-list.component';
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'products/:id',
+    canActivate: [ProductDetailGuard],
     component: ProductDetailComponent
   },
   {
@@ -20,12 +22,12 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'welcome',
-    pathMatch:'full'
+    pathMatch: 'full'
   },
   {
     path: '**',
     redirectTo: 'welcome',
-    pathMatch:'full'
+    pathMatch: 'full'
   }
 ];
 
