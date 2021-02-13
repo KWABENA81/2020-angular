@@ -58,3 +58,8 @@ bower_components
 bin
 obj
 packages
+
+
+2020-angular/
+../angular-modal/
+../angular10-example/
