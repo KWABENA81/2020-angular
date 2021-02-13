@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { Product } from "./product";
+import { IProduct } from "./product";
 import { ProductService } from "./product.service";
 
 @Component({
-    selector: 'app-products',
+   // selector: 'app-products',
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.css']
 })
@@ -14,24 +14,33 @@ export class ProductListComponent implements OnInit {
     imageWidth = 50;
     imageMargin = 2;
     showImage: boolean = false;
+    errorMessage = '';
 
-    _listFilter: string;
-    filteredProducts: Product[];
-
-    products: Product[] = [];
-    errorMessage: any;
-    
-    constructor(private productService: ProductService) {
-        // this.listFilter = 'cart';
+    _listFilter = '';
+    get listFilter(): string {
+        return this._listFilter;
     }
-    
     set listFilter(value: string) {
         this._listFilter = value;
         this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
     }
 
-    get listFilter(): string {
-        return this._listFilter;
+    filteredProducts: IProduct[];
+    products: IProduct[] = [];
+       
+    constructor(private productService: ProductService) {
+        // this.listFilter = 'cart';
+    }
+
+    onRatingClicked(msg: string): void {
+        this.pageTitle = 'Product List: ' + msg;
+    }
+
+    performFilter(filterBy: string): IProduct[] {
+        filterBy = filterBy.toLocaleLowerCase();
+        return this.products.filter((product: IProduct) => {
+            product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1;
+        });
     }
 
     toggleImage(): void {
@@ -41,7 +50,6 @@ export class ProductListComponent implements OnInit {
     ngOnInit(): void {
         this.productService.getProducts().subscribe({
             next: products => {
-
                 this.products = products;
                 this.filteredProducts = this.products;
             },
@@ -50,16 +58,5 @@ export class ProductListComponent implements OnInit {
             }
         });
 
-    }
-
-    performFilter(filterBy: string): Product[] {
-        filterBy = filterBy.toLocaleLowerCase();
-        return this.products.filter((product: Product) => {
-            return product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1;
-        });
-    }
-
-    onRatingClicked(msg: string): void {
-        this.pageTitle = 'Product List: ' + msg;
     }
 }

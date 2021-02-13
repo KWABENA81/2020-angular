@@ -9,47 +9,50 @@
                 <input type='text' [(ngModel)]='listFilter' />
             </div>
         </div>
-        <div class=' row '>
+        <div class='row' *ngIf='listFilter'>
             <div class='col-md-6'>
                 <h4>Filtered By: {{ listFilter }}</h4>
             </div>
-            <div class='table-responsive'>
-                <table class='table ' *ngIf='products && products.length'>
-                    <thead>
-                        <tr>
-                            <th>
-                                <button class='btn btn-primary' (click)='toggleImage()'>
+        </div>
+        <div class='table-responsive'>
+            <table class='table' *ngIf='products && products.length'>
+                <thead>
+                    <tr>
+                        <th>
+                            <button class='btn btn-primary' (click)='toggleImage()'>
                                  {{ showImage ? 'Hide' : 'Show' }}  Image
-                                </button>
-                            </th>
-                            <th>Product</th>
-                            <th>Code</th>
-                            <th>Available</th>
-                            <th>Price</th>
-                            <th>Description</th>
-                            <th>5 Star Rating</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor='let product of filteredProducts'>
-                            <td>
-                                <img *ngIf='showImage' [src]='product.imageUrl' [title]='product.productName' [style.width.px]='imageWidth' [style.margin.px]='imageMargin'>
-                            </td>
-                            <td>
-                                <a [routerLink]="['/products', product.productId]"> {{ product.productName | uppercase }} </a>
-                            </td>
-                            <td>{{ product.productCode | uppercase | convertToSpaces: '-' }}</td>
-                            <td>{{ product.releaseDate }}</td>
-                            <td>{{ product.price | currency: 'CAD' : 'symbol-narrow' }}</td>
-                            <td>{{ product.description }}</td>
-                            <td>
-                                <app-star [rating]='product.starRating' (ratingClicked)='onRatingClicked($event)'>
-                                </app-star>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                            </button>
+                        </th>
+                        <th>Product</th>
+                        <th>Code</th>
+                        <th>Available</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>5 Star Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let product of filteredProducts'>
+                        <td>
+                            <img *ngIf='showImage' [src]='product.imageUrl' [title]='product.productName' [style.width.px]='imageWidth' [style.margin.px]='imageMargin'>
+                        </td>
+                        <td>
+                            <a [routerLink]=" [ '/products', product.productId] "> {{ product.productName | uppercase }} </a>
+                        </td>
+                        <td>{{ product.productCode | uppercase | convertToSpaces: '-' }}</td>
+                        <td>{{ product.releaseDate }}</td>
+                        <td>{{ product.price | currency: 'CAD' : 'symbol-narrow' }}</td>
+                        <td>{{ product.description }}</td>
+                        <td>
+                            <app-star [rating]='product.starRating' (ratingClicked)='onRatingClicked($event)'>
+                            </app-star>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
+<div *ngIf='errorMessage' class='alert alert-danger'>
+    Error: {{ errorMessage }}
 </div>
