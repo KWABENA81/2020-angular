@@ -1,44 +1,39 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { HttpClientModule } from '@angular/common/http';
+
+// Imports for loading & configuring the in-memory web api
+//import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { ProductData } from './products/product-data';
+
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './home/welcome.component';
-import { RouterModule } from '@angular/router';
+
+/* Feature Modules */
 import { ProductModule } from './products/product.module';
-//import { ReactiveFormsModule } from '@angular/forms';
+import { UserModule } from './user/user.module';
+import { MessageModule } from './messages/message.module';
+import { MessageComponent } from './messages/message.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    WelcomeComponent
-  ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule
-      .forRoot([
-        {
-          path: 'welcome',
-          component: WelcomeComponent
-        },
-        {
-          path: '',
-          redirectTo: 'welcome',
-          pathMatch: 'full'
-        },
-        {
-          path: '**',
-          redirectTo: 'welcome',
-          pathMatch: 'full'
-        }
-      ]),
-      ProductModule
+    InMemoryWebApiModule.forRoot(ProductData, { delay: 1000 }),
+       ProductModule,
+    UserModule,
+    MessageModule,
+    AppRoutingModule
   ],
-  providers: [],
-  bootstrap: [
-    //  Component needed to start the application, root component
-    AppComponent
-  ]
+  declarations: [
+    AppComponent,
+    WelcomeComponent,
+    PageNotFoundComponent
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
