@@ -22,43 +22,35 @@ import { ProductEditTagsComponent } from './product-edit/product-edit-tags.compo
     ConvertToSpacesPipe
   ],
   imports: [
+    SharedModule,
     RouterModule.forChild([
       {
         path: 'products',
-        component: ProductListComponent
-      },
-      {
-        path: 'products/:id',
-        canActivate: [ProductDetailGuard],
-        component: ProductDetailComponent,
-        resolve: { resolvedData: ProductResolverService }
-      },
-      {
-        path: 'products/:id/edit',
-        //   canActivate: [ProductDetailGuard],
-        component: ProductEditComponent,
-        resolve: {
-          resolvedData: ProductResolverService//,
-          //  categories: CategoryResolverService
-        },
         children: [
+          { path: '', component: ProductListComponent },
           {
-            path: '',
-            redirectTo: 'info',
-            pathMatch: 'full'
+            path: ':id',
+            //  canActivate: [ProductDetailGuard],
+            component: ProductDetailComponent,
+            resolve: { resolvedData: ProductResolverService }
           },
           {
-            path: 'info',
-            component: ProductEditInfoComponent
-          },
-          {
-            path: 'tags',
-            component: ProductEditTagsComponent
+            path: ':id/edit',
+            //   canActivate: [ProductDetailGuard],
+            component: ProductEditComponent,
+            resolve: {
+              resolvedData: ProductResolverService//,
+              //  categories: CategoryResolverService
+            },
+            children: [
+              { path: '', redirectTo: 'info', pathMatch: 'full' },
+              { path: 'info', component: ProductEditInfoComponent },
+              { path: 'tags', component: ProductEditTagsComponent }
+            ]
           }
         ]
-      }
-    ]),
-    SharedModule
+      },
+    ])
   ]
 })
 export class ProductModule { }
