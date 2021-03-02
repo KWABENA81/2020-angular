@@ -17,14 +17,16 @@ import { MessageComponent } from './messages/message.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    InMemoryWebApiModule.forRoot(ProductData, { delay: 1000 }),
-       ProductModule,
+    InMemoryWebApiModule.forRoot(ProductData, { delay: 2000 }),
+    ProductModule,
     UserModule,
     MessageModule,
     AppRoutingModule

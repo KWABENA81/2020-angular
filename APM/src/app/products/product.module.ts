@@ -39,8 +39,8 @@ import { ProductEditTagsComponent } from './product-edit/product-edit-tags.compo
             //   canActivate: [ProductDetailGuard],
             component: ProductEditComponent,
             resolve: {
-              resolvedData: ProductResolverService//,
-              //  categories: CategoryResolverService
+              resolvedData: ProductResolverService
+              //,  categories: CategoryResolverService
             },
             children: [
               { path: '', redirectTo: 'info', pathMatch: 'full' },
